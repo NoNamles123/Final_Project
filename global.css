@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-main-color: #6E38F7;
+    --breakpoint-nav: 835px;
+}
+
+.custom-nav-hidden {
+  display: none;
+}
+
+@media (min-width: 835px) {
+  .custom-nav-hidden {
+    display: flex;
+  }
+  .custom-burger-visible {
+    display: none;
+  }
+}
