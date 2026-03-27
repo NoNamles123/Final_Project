@@ -434,9 +434,6 @@
   .justify-center {
     justify-content: center;
   }
-  .gap-1 {
-    gap: calc(var(--spacing) * 1);
-  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
@@ -515,9 +512,6 @@
   }
   .bg-\[\#F1F4F9\] {
     background-color: #F1F4F9;
-  }
-  .bg-\[\#F4F5F7\] {
-    background-color: #F4F5F7;
   }
   .bg-\[\#F7F9FC\] {
     background-color: #F7F9FC;
@@ -726,9 +720,6 @@
   .text-\[\#AAB0C0\] {
     color: #AAB0C0;
   }
-  .text-\[\#CCD5DE\] {
-    color: #CCD5DE;
-  }
   .text-black {
     color: var(--color-black);
   }
@@ -866,13 +857,6 @@
     &:hover {
       @media (hover: hover) {
         text-decoration-line: underline;
-      }
-    }
-  }
-  .hover\:opacity-70 {
-    &:hover {
-      @media (hover: hover) {
-        opacity: 70%;
       }
     }
   }
