@@ -7,7 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
     burgerBtn.addEventListener('click', function (e) {
         e.preventDefault();
 
-        mobileMenu.classList.toggle('-translate-x-full');
+        const isOpen = mobileMenu.classList.toggle('-translate-x-full');
+
+        if (!mobileMenu.classList.contains('-translate-x-full')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
 
         const lines = burgerBtn.querySelectorAll('span');
         if (lines.length === 3) {
