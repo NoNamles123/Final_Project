@@ -65,3 +65,7 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
         input.value = '';
     }
 });
+
+window.onbeforeunload = function() {
+    return "Ви впевнені? Історія чату буде видалена при оновленні сторінки.";
+};
