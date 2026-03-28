@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frequently asked questions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/output.css">
+    <link rel="stylesheet" href="../CSS/global.css">
 </head>
 
-<body class="bg-[#FFFFFF] font-sans antialiased text-[#2D2D2D]">
+<body class="bg-[#FFFFFF] font-['Rubik'] antialiased text-[#2D2D2D]">
 
     <header class="flex items-center justify-between px-6 md:px-12 py-6 relative">
-
         <button id="burger-btn"
             class="custom-burger-visible z-50 cursor-pointer p-0 bg-transparent border-0 flex nav:hidden">
             <img src="../Images/icons/Burger.svg" alt="Burger Menu" class="w-10 h-10 object-contain">
@@ -25,17 +26,15 @@
                 <a href="Why_we.html" class="hover:text-black uppercase transition-colors">Why Choose Us</a>
             </nav>
 
-            <div class="flex items-center gap-8 text-sm font-bold tracking-widest text-[#6C38FF]">
+            <div class="flex items-center gap-8 text-sm font-bold tracking-widest text-main-color">
                 <a href="Login.html" class="hover:text-purple-900 uppercase transition-colors">Login</a>
                 <a href="Register.html" class="hover:text-purple-900 uppercase transition-colors">Register</a>
             </div>
         </div>
-
     </header>
 
     <div id="mobile-menu"
-        class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 nav:hidden z-40">
-
+        class="fixed top-0 left-0 w-64 h-[100dvh] bg-white shadow-lg transform -translate-x-full transition-transform duration-300 nav:hidden z-40">
         <nav class="flex flex-col gap-6 p-8 text-lg font-semibold pt-20">
             <a href="../index.html">Go home</a>
             <a href="About.html">About</a>
@@ -43,16 +42,62 @@
             <a href="pricing.html">Pricing</a>
             <a href="Why_we.html">Why Choose Us</a>
             <hr class="border-gray-100">
-            <a href="Login.html" class="text-[#6C38FF]">Login</a>
-            <a href="Register.html" class="text-[#6C38FF]">Register</a>
+            <a href="Login.html" class="text-main-color">Login</a>
+            <a href="Register.html" class="text-main-color">Register</a>
         </nav>
     </div>
 
+    <main class="max-w-7xl mx-auto px-6 py-12 md:py-24">
+        <h1 class="text-4xl md:text-5xl font-bold text-center text-[#2D313D] mb-16 tracking-tight uppercase">FAQ</h1>
 
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+            <div class="w-full lg:w-1/3 border border-gray-100 rounded-2xl p-4 bg-white shadow-sm space-y-2">
+                <button class="faq-btn w-full flex items-center justify-between p-4 text-left rounded-xl transition-all duration-200 group active-faq" data-faq="setup">
+                    <div class="flex items-center gap-4">
+                        <span class="faq-icon text-main-color font-bold text-xl">+</span>
+                        <span class="faq-button-text font-bold text-gray-700 group-hover:text-black">How do I set up the VPN?</span>
+                    </div>
+                </button>
 
+                <button class="faq-btn w-full flex items-center justify-between p-4 text-left rounded-xl transition-all duration-200 group" data-faq="not-working">
+                    <div class="flex items-center gap-4">
+                        <span class="faq-icon text-main-color font-bold text-xl">+</span>
+                        <span class="faq-button-text font-bold text-gray-700 group-hover:text-black">Why isn't my VPN working?</span>
+                    </div>
+                </button>
 
+                <button class="faq-btn w-full flex items-center justify-between p-4 text-left rounded-xl transition-all duration-200 group" data-faq="devices">
+                    <div class="flex items-center gap-4">
+                        <span class="faq-icon text-main-color font-bold text-xl">+</span>
+                        <span class="faq-button-text font-bold text-gray-700 group-hover:text-black">Can I use the VPN on multiple devices?</span>
+                    </div>
+                </button>
+
+                <button class="faq-btn w-full flex items-center justify-between p-4 text-left rounded-xl transition-all duration-200 group" data-faq="speed">
+                    <div class="flex items-center gap-4">
+                        <span class="faq-icon text-main-color font-bold text-xl">+</span>
+                        <span class="faq-button-text font-bold text-gray-700 group-hover:text-black">Does using a VPN slow down my connection?</span>
+                    </div>
+                </button>
+            </div>
+
+            <div class="w-full lg:w-2/3 border border-gray-100 rounded-2xl p-8 md:p-12 bg-white shadow-sm min-h-[400px]">
+                <div id="faq-display">
+                    <h2 id="faq-title" class="text-2xl md:text-3xl font-bold text-[#2D313D] mb-6 tracking-tight">How do I set up the VPN?</h2>
+                    <div id="faq-text" class="text-gray-500 leading-relaxed space-y-4 text-lg">
+                        <p>Setting up your VPN is easy. Follow these steps:</p>
+                        <ul class="list-disc ml-6 space-y-2">
+                            <li>Download the client for your OS (Windows, Android, or iOS).</li>
+                            <li>Log in using your registered credentials.</li>
+                            <li>Select a server location and hit "Connect".</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script src="../JavaScript/Burger.js"></script>
-    <script type="module" src="../JavaScript/ChatWidget.js"></script>
+    <script src="../JavaScript/FAQ.js"></script>
 </body>
 </html>
