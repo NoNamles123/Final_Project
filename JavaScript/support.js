@@ -8,17 +8,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ФІКС: Кожного разу генеруємо новий ID (не зберігаємо в localStorage)
-// Це гарантує, що при оновленні сторінки чат буде порожнім
 const userId = 'user_' + Math.random().toString(36).substr(2, 9);
 
 const chatRef = ref(db, `chats/${userId}`);
 const messagesContainer = document.getElementById('chat-messages');
 
-// Очищення контейнера при завантаженні
 messagesContainer.innerHTML = '';
 
-// Слухаємо базу
 onChildAdded(chatRef, (snapshot) => {
     const data = snapshot.val();
     if (data && data.text) {
@@ -48,14 +44,12 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
     const text = input.value.trim();
 
     if (text) {
-        // 1. Записуємо в Firebase
         await push(chatRef, {
             text: text,
             sender: 'user',
             timestamp: Date.now()
         });
 
-        // 2. Сповіщаємо в Телеграм
         const botToken = '8285437642:AAGSWQ_6TPye9RtrDHgVXhqidvIWL5H2hGA';
         const myId = '7206470002';
         
@@ -64,7 +58,7 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: myId,
-                text: `📩 Новий клієнт!\nID: ${userId}\nТекст: ${text}`
+                text: `Новий клієнт!\nID: ${userId}\nТекст: ${text}`
             })
         });
 
