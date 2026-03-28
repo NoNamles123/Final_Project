@@ -11,10 +11,8 @@
 
 <body class="bg-[#FFFFFF] antialiased text-[#2D2D2D]">
 
-    <header class="flex items-center justify-between px-6 md:px-12 py-6 relative">
-
-        <button id="burger-btn"
-            class="custom-burger-visible z-50 cursor-pointer p-0 bg-transparent border-0 flex nav:hidden">
+    <header class="flex items-center justify-between px-6 md:px-12 py-6 relative font-['Rubik']">
+        <button id="burger-btn" class="custom-burger-visible z-50 cursor-pointer p-0 bg-transparent border-0 flex nav:hidden">
             <img src="../Images/icons/Burger.svg" alt="Burger Menu" class="w-10 h-10 object-contain">
         </button>
 
@@ -27,17 +25,14 @@
                 <a href="Why_we.html" class="hover:text-black uppercase transition-colors">Why Choose Us</a>
             </nav>
 
-            <div class="flex items-center gap-8 text-sm font-bold tracking-widest" style="color: var(--color-main-color);">
+            <div class="flex items-center gap-8 text-sm font-bold tracking-widest text-[var(--color-main)]">
                 <a href="Login.html" class="hover:opacity-80 uppercase transition-colors">Login</a>
                 <a href="Register.html" class="hover:opacity-80 uppercase transition-colors">Register</a>
             </div>
         </div>
-
     </header>
 
-    <div id="mobile-menu"
-        class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 nav:hidden z-40">
-
+    <div id="mobile-menu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 nav:hidden z-40">
         <nav class="flex flex-col gap-6 p-8 text-lg font-semibold pt-20">
             <a href="../index.html">Go home</a>
             <a href="About.html">About</a>
@@ -45,80 +40,67 @@
             <a href="FAQ.html">Faq</a>
             <a href="Why_we.html">Why Choose Us</a>
             <hr class="border-gray-100">
-            <a href="Login.html" style="color: var(--color-main-color);">Login</a>
-            <a href="Register.html" style="color: var(--color-main-color);">Register</a>
+            <a href="Login.html" class="text-[var(--color-main)]">Login</a>
+            <a href="Register.html" class="text-[var(--color-main)]">Register</a>
         </nav>
     </div>
 
-    <main class="max-w-[1200px] mx-auto px-6 py-12">
-        
+    <main class="max-w-[1200px] mx-auto px-6 py-12 font-['Rubik']">
         <h1 class="text-[42px] font-bold text-center text-[#2D313D] mb-12">Our team</h1>
 
-        <div class="w-full aspect-[21/9] bg-[#F7F9FC] flex items-center justify-center mb-20 rounded-sm">
-            <svg width="100" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 19V5C21 3.9 20.1 3 19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19ZM8.5 13.5L11 16.51L14.5 12L19 18H5L8.5 13.5Z" fill="#D1D6E3"/>
-            </svg>
+        <div class="w-full aspect-[21/9] bg-[#F7F9FC] flex items-center justify-center mb-20 rounded-xl overflow-hidden shadow-sm">
+            <img src="../Images/Team.jpg" alt="Our team" class="w-full h-full object-cover">
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 max-w-[1000px] mx-auto">
             
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#F0F2F8] flex items-center justify-center shrink-0">
-                    <img src="../Images/icons/dandsjfsdjof.svg" alt="../Images/icons/Save.svg" class="w-6 h-6 opacity-20">
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="../Images/CEO.png" alt="Kaplun Maxym" class="w-full h-full object-cover aspect-square">
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Igor Antonovich</h3>
-                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1">CEO</p>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Kaplun Maxym</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">CEO</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#F0F2F8] flex items-center justify-center shrink-0">
-                    <img src="../Images/icons/dandsjfsdjof.svg" alt="../Images/icons/Save.svg" class="w-6 h-6 opacity-20">
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="../Images/CO_FOUNDER.jpg" alt="Bidon" class="w-full h-full object-cover aspect-square">
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Hemchandra Chakravorty</h3>
-                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1">CO-FOUNDER</p>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Bidon</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">CO-FOUNDER</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#F0F2F8] flex items-center justify-center shrink-0">
-                    <img src="../Images/icons/dandsjfsdjof.svg" alt="../Images/icons/Save.svg" class="w-6 h-6 opacity-20">
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="../Images/Designer1.jpg" alt="Vlad Bidlo" class="w-full h-full object-cover aspect-square">
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Harrison Phillips</h3>
-                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1">DESIGNER</p>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Vlad Bidlo</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">DESIGNER</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#F0F2F8] flex items-center justify-center shrink-0">
-                    <img src="../Images/icons/dandsjfsdjof.svg" alt="../Images/icons/Save.svg" class="w-6 h-6 opacity-20">
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="../Images/WebDev.jpg" alt="Illia Horpynyc" class="w-full h-full object-cover aspect-square">
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Rahul Malviya</h3>
-                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1">WEB DEVELOPER</p>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Illia Horpynyc</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">WEB DEVELOPER</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#F0F2F8] flex items-center justify-center shrink-0">
-                    <img src="../Images/icons/dandsjfsdjof.svg" alt="../Images/icons/Save.svg" class="w-6 h-6 opacity-20">
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="../Images/Designer2.jpg" alt="Valik" class="w-full h-full object-cover aspect-square">
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Marama Petera</h3>
-                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1">WEB DEVELOPER</p>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#F0F2F8] flex items-center justify-center shrink-0">
-                    <img src="../Images/icons/dandsjfsdjof.svg" alt="../Images/icons/Save.svg" class="w-6 h-6 opacity-20">
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Jesus Bañuelos</h3>
-                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1">DESIGNER</p>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Valik</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">DESIGNER</p>
                 </div>
             </div>
 
@@ -129,5 +111,4 @@
     <script type="module" src="../JavaScript/ChatWidget.js"></script>
 
 </body>
-
 </html>
