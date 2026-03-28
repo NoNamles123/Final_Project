@@ -1094,9 +1094,6 @@
   .text-main-color {
     color: var(--color-main-color);
   }
-  .text-purple-500 {
-    color: var(--color-purple-500);
-  }
   .text-slate-900 {
     color: var(--color-slate-900);
   }
