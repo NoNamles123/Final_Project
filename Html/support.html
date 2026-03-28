@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/output.css">
+</head>
+<body class="h-full bg-gray-50 font-sans flex items-center justify-center p-4">
+
+    <div class="w-full max-w-md bg-white rounded-2xl overflow-hidden chat-shadow flex flex-col h-[600px] border border-gray-100">
+        
+        <div class="p-5 text-black flex items-center justify-between" style="background-color: var(--main-color);">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-xl">S</div>
+                <div>
+                    <h3 class="font-bold leading-none">Support Agent</h3>
+                    <span class="text-xs opacity-80 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> Online
+                    </span>
+                </div>
+            </div>
+            <a href="../index.html" class="text-black/80 hover:text-grey transition-colors text-sm">Close</a>
+        </div>
+
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-50/50">
+            <div class="flex justify-start">
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[80%] text-sm text-gray-700 border border-gray-100">
+                    Вітаємо! Напишіть ваше запитання нижче.
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 bg-white border-t border-gray-100">
+            <form id="chat-form" class="flex gap-2">
+                <input type="text" id="user-input" placeholder="Введіть повідомлення..." 
+                       class="flex-1 bg-gray-100 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#6E38F7] outline-none transition-all">
+                <button type="submit" id="send-btn"
+                        class="p-3 rounded-xl text-black transition-all active:scale-95 flex items-center justify-center"
+                        style="background-color: var(--main-color);">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../JavaScript/support.js"></script>
+</body>
+</html>
