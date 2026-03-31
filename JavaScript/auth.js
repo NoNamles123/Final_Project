@@ -34,7 +34,7 @@ async function sendTelegramNotification(username, email) {
             })
         });
     } catch (e) {
-        console.error("Error Telegram:", e);
+        console.error("Помилка Telegram:", e);
     }
 }
 
@@ -49,7 +49,7 @@ if (regForm) {
         const confirmPassword = document.getElementById('reg-confirm-password').value;
 
         if (password !== confirmPassword) {
-            alert("Password dont sync! Check password and try again ");
+            alert("Паролі не збігаються!");
             return;
         }
 
@@ -61,10 +61,10 @@ if (regForm) {
                     date: new Date().toISOString()
                 });
                 sendTelegramNotification(username, email);
-                alert("Sucsesfull registration!");
+                alert("Registration was successful! You can now log in..");
                 window.location.href = "Login.html";
             })
-            .catch((error) => alert("Eror to register: " + error.message));
+            .catch((error) => alert("Registration error : " + error.message));
     });
 }
 
@@ -88,12 +88,12 @@ if (loginForm) {
                     const userId = Object.keys(userData)[0];
                     emailToAuth = userData[userId].email;
                 } else {
-                    alert("We didn`t find user with that username");
+                    alert("No users with this name");
                     return;
                 }
             } catch (error) {
-                console.error("Can`t find username: ", error);
-                alert("Can`t find username");
+                console.error("Data base search error:", error);
+                alert("Data base search error, please contact support.");
                 return;
             }
         }
@@ -103,8 +103,8 @@ if (loginForm) {
                 window.location.href = "../index.html";
             })
             .catch((error) => {
-                console.error("Error to enter", error.code);
-                alert("Wrong login or password please try again");
+                console.error("Error to log in:", error.code);
+                alert("Incorrect login or password");
             });
     });
 }
@@ -123,6 +123,6 @@ if (googleBtn) {
                 sendTelegramNotification(user.displayName || "Google User", user.email);
                 window.location.href = "../index.html";
             })
-            .catch((error) => alert("Error Google: " + error.message));
+            .catch((error) => alert("Error with Google: " + error.message));
     });
 }
