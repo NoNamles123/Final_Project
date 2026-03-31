@@ -400,6 +400,9 @@
   .aspect-video {
     aspect-ratio: var(--aspect-video);
   }
+  .h-1 {
+    height: calc(var(--spacing) * 1);
+  }
   .h-2 {
     height: calc(var(--spacing) * 2);
   }
