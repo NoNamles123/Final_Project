@@ -5,7 +5,7 @@ import { getDatabase, ref, set, get, query, orderByChild, equalTo } from "https:
 const firebaseConfig = {
     apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
     authDomain: "emails-dc972.firebaseapp.com",
-    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app",
+    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app/",
     projectId: "emails-dc972",
     storageBucket: "emails-dc972.firebasestorage.app",
     messagingSenderId: "779863028604",
@@ -34,13 +34,13 @@ async function sendTelegramNotification(username, email) {
             })
         });
     } catch (e) {
-        console.error("Помилка Telegram:", e);
+        console.error("Telegram error:", e);
     }
 }
 
 const regForm = document.getElementById('register-form');
 if (regForm) {
-    regForm.addEventListener('submit', (e) => {
+    regForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const username = document.getElementById('reg-username').value.trim();
@@ -49,22 +49,26 @@ if (regForm) {
         const confirmPassword = document.getElementById('reg-confirm-password').value;
 
         if (password !== confirmPassword) {
-            alert("Паролі не збігаються!");
+            alert("Passwords do not match!");
             return;
         }
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                set(ref(db, 'users/' + userCredential.user.uid), {
-                    username: username,
-                    email: email,
-                    date: new Date().toISOString()
-                });
-                sendTelegramNotification(username, email);
-                alert("Registration was successful! You can now log in..");
-                window.location.href = "Login.html";
-            })
-            .catch((error) => alert("Registration error : " + error.message));
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const uid = userCredential.user.uid;
+
+            await set(ref(db, 'users/' + uid), {
+                username: username,
+                email: email,
+                date: new Date().toISOString()
+            });
+            await sendTelegramNotification(username, email);
+
+            alert("Registration successful!");
+            window.location.href = "Login.html";
+        } catch (error) {
+            alert("Error: " + error.message);
+        }
     });
 }
 
@@ -88,12 +92,11 @@ if (loginForm) {
                     const userId = Object.keys(userData)[0];
                     emailToAuth = userData[userId].email;
                 } else {
-                    alert("No users with this name");
+                    alert("No user found with this nickname");
                     return;
                 }
             } catch (error) {
-                console.error("Data base search error:", error);
-                alert("Data base search error, please contact support.");
+                alert("Database search error. Check your Rules in Firebase Console.");
                 return;
             }
         }
@@ -102,27 +105,27 @@ if (loginForm) {
             .then(() => {
                 window.location.href = "../index.html";
             })
-            .catch((error) => {
-                console.error("Error to log in:", error.code);
-                alert("Incorrect login or password");
-            });
+            .catch(() => alert("Incorrect login or password"));
     });
 }
 
 const googleBtn = document.querySelector('button.soc-btn img[alt="Google"]')?.parentElement;
 if (googleBtn) {
-    googleBtn.addEventListener('click', () => {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                set(ref(db, 'users/' + user.uid), {
-                    username: user.displayName || "Google User",
-                    email: user.email,
-                    lastLogin: new Date().toISOString()
-                });
-                sendTelegramNotification(user.displayName || "Google User", user.email);
-                window.location.href = "../index.html";
-            })
-            .catch((error) => alert("Error with Google: " + error.message));
+    googleBtn.addEventListener('click', async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            
+            await set(ref(db, 'users/' + user.uid), {
+                username: user.displayName || "Google User",
+                email: user.email,
+                lastLogin: new Date().toISOString()
+            });
+            
+            await sendTelegramNotification(user.displayName || "Google User", user.email);
+            window.location.href = "../index.html";
+        } catch (error) {
+            alert("Google error: " + error.message);
+        }
     });
 }
