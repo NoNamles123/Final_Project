@@ -35,30 +35,30 @@
                 <p class="text-gray-500 text-base font-light">Choose one of the option to go</p>
             </header>
 
-            <form id="register-form" action="#" class="space-y-4">
-                <input type="text" placeholder="Create username" class="input-field">
-                <input type="email" placeholder="email" class="input-field">
-                <input type="password" placeholder="New password" class="input-field">
-                <input type="password" placeholder="Repeat password" class="input-field">
+            <form id="register-form" class="space-y-4">
+                <input type="text" id="reg-username" placeholder="Create username" class="input-field" required>
+                <input type="email" id="reg-email" placeholder="email" class="input-field" required>
+                <input type="password" id="reg-password" placeholder="New password" class="input-field" required>
+                <input type="password" id="reg-confirm-password" placeholder="Repeat password" class="input-field"required>
 
-                <div class="relative py-4">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-100"></div>
-                    </div>
-                    <div class="relative flex justify-start"><span
-                            class="bg-white pr-3 text-sm text-gray-500 font-light">Or register with</span></div>
+            <div class="relative py-4">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-100"></div>
                 </div>
+                <div class="relative flex justify-start"><span class="bg-white pr-3 text-sm text-gray-500 font-light">Or
+                        register with</span></div>
+            </div>
 
-                <div class="grid grid-cols-2 gap-4 pb-6">
-                    <button type="button" class="soc-btn">
-                        <img src="../Images/icons/Google.svg" alt="Google" class="h-5 w-5">
-                    </button>
-                    <button type="button" class="disabled">
-                        <img src="../Images/icons/Apple.svg" alt="Apple" class="h-5 w-5">
-                    </button>
-                </div>
+            <div class="grid grid-cols-2 gap-4 pb-6">
+                <button type="button" class="soc-btn">
+                    <img src="../Images/icons/Google.svg" alt="Google" class="h-5 w-5">
+                </button>
+                <button type="button" class="disabled">
+                    <img src="../Images/icons/Apple.svg" alt="Apple" class="h-5 w-5">
+                </button>
+            </div>
 
-                <button type="submit" class="btn-primary">Register</button>
+            <button type="submit" class="btn-primary">Register</button>
             </form>
 
             <footer class="mt-8 text-center text-sm text-gray-500 font-light">
