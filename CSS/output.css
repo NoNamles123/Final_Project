@@ -1733,6 +1733,9 @@
 .soc-btn:hover {
   background-color: #F9FAFB;
 }
+.hidden {
+  display: none !important;
+}
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;

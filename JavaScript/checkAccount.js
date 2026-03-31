@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -10,7 +10,7 @@ const firebaseConfig = {
     appId: "1:779863028604:web:5dce06dc9343585dec6af9"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
@@ -21,7 +21,6 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         guestBlocks.forEach(b => b?.classList.add('hidden'));
         userBlocks.forEach(b => b?.classList.remove('hidden'));
-        
         const name = user.displayName || user.email.split('@')[0];
         userNames.forEach(n => { if(n) n.textContent = name; });
     } else {
@@ -32,7 +31,8 @@ onAuthStateChanged(auth, (user) => {
 
 const handleLogout = () => {
     signOut(auth).then(() => {
-        window.location.reload();
+        const isSubDir = window.location.pathname.includes('/Html/');
+        window.location.href = isSubDir ? "../index.html" : "index.html";
     });
 };
 
