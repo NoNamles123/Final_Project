@@ -5,13 +5,14 @@
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "Html/Main.html" ,
+  "main": "Html/Main.html",
   "scripts": {
     "dev": "postcss global.css -o CSS/output.css --watch",
     "build": "postcss global.css -o CSS/output.css"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.1",
+    "firebase": "^12.11.0",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1"
   },
