@@ -38,11 +38,19 @@ async function sendTelegramNotification(username, email) {
     }
 }
 
+let isSubmitting = false;
+
 const regForm = document.getElementById('register-form');
 if (regForm) {
     regForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        if (isSubmitting) return;
+        isSubmitting = true;
+
+        const submitBtn = regForm.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
         const username = document.getElementById('reg-username').value.trim();
         const email = document.getElementById('reg-email').value.trim();
         const password = document.getElementById('reg-password').value;
@@ -50,6 +58,8 @@ if (regForm) {
 
         if (password !== confirmPassword) {
             alert("Passwords do not match!");
+            isSubmitting = false;
+            if (submitBtn) submitBtn.disabled = false;
             return;
         }
 
@@ -62,12 +72,20 @@ if (regForm) {
                 email: email,
                 date: new Date().toISOString()
             });
+
             await sendTelegramNotification(username, email);
 
             alert("Registration successful!");
             window.location.href = "Login.html";
         } catch (error) {
-            alert("Error: " + error.message);
+            if (error.code === 'auth/email-already-in-use') {
+                alert("This email is already registered. Please log in.");
+                window.location.href = "Login.html";
+            } else {
+                alert("Error: " + error.message);
+                isSubmitting = false;
+                if (submitBtn) submitBtn.disabled = false;
+            }
         }
     });
 }
@@ -96,7 +114,7 @@ if (loginForm) {
                     return;
                 }
             } catch (error) {
-                alert("Database search error. Check your Rules in Firebase Console.");
+                alert("Database search error. Check your Firebase Rules.");
                 return;
             }
         }
