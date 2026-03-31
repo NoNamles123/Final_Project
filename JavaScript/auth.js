@@ -22,7 +22,7 @@ const botToken = '8285437642:AAGSWQ_6TPye9RtrDHgVXhqidvIWL5H2hGA';
 const chatId = '7206470002';
 
 async function sendTelegramNotification(username, email) {
-    const text = `*Новий користувач!*\n👤 Логін: ${username}\n📧 Email: ${email}`;
+    const text = `*Новий користувач!*\n Логін: ${username}\n Email: ${email}`;
     try {
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
