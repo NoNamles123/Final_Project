@@ -5,7 +5,8 @@ const firebaseConfig = {
     databaseURL: "https://dildo1488-70cee-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const auth = getAuth(app);
 const db = getDatabase(app);
 
 const userId = 'user_' + Math.random().toString(36).substr(2, 9);
