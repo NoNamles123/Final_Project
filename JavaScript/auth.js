@@ -1,6 +1,6 @@
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, set, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
@@ -22,7 +22,7 @@ const botToken = '8285437642:AAGSWQ_6TPye9RtrDHgVXhqidvIWL5H2hGA';
 const chatId = '7206470002';
 
 async function sendTelegramNotification(username, email) {
-    const text = `*Новий користувач!*\n Логін: ${username}\n Email: ${email}`;
+    const text = `*Новий користувач!*\n👤 Логін: ${username}\n📧 Email: ${email}`;
     try {
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
@@ -34,7 +34,7 @@ async function sendTelegramNotification(username, email) {
             })
         });
     } catch (e) {
-        console.error(e);
+        console.error("Error Telegram:", e);
     }
 }
 
@@ -42,10 +42,16 @@ const regForm = document.getElementById('register-form');
 if (regForm) {
     regForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const inputs = regForm.querySelectorAll('input');
-        const username = inputs[0].value;
-        const email = inputs[1].value;
-        const password = inputs[2].value;
+        
+        const username = document.getElementById('reg-username').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+        if (password !== confirmPassword) {
+            alert("Password dont sync! Check password and try again ");
+            return;
+        }
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -55,9 +61,51 @@ if (regForm) {
                     date: new Date().toISOString()
                 });
                 sendTelegramNotification(username, email);
+                alert("Sucsesfull registration!");
                 window.location.href = "Login.html";
             })
-            .catch((error) => alert(error.message));
+            .catch((error) => alert("Eror to register: " + error.message));
+    });
+}
+
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const loginInput = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        let emailToAuth = loginInput;
+
+        if (!loginInput.includes('@')) {
+            try {
+                const usersRef = ref(db, 'users');
+                const userQuery = query(usersRef, orderByChild('username'), equalTo(loginInput));
+                const snapshot = await get(userQuery);
+
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const userId = Object.keys(userData)[0];
+                    emailToAuth = userData[userId].email;
+                } else {
+                    alert("We didn`t find user with that username");
+                    return;
+                }
+            } catch (error) {
+                console.error("Can`t find username: ", error);
+                alert("Can`t find username");
+                return;
+            }
+        }
+
+        signInWithEmailAndPassword(auth, emailToAuth, password)
+            .then(() => {
+                window.location.href = "../index.html";
+            })
+            .catch((error) => {
+                console.error("Error to enter", error.code);
+                alert("Wrong login or password please try again");
+            });
     });
 }
 
@@ -68,28 +116,13 @@ if (googleBtn) {
             .then((result) => {
                 const user = result.user;
                 set(ref(db, 'users/' + user.uid), {
-                    username: user.displayName,
+                    username: user.displayName || "Google User",
                     email: user.email,
                     lastLogin: new Date().toISOString()
                 });
-                sendTelegramNotification(user.displayName, user.email);
+                sendTelegramNotification(user.displayName || "Google User", user.email);
                 window.location.href = "../index.html";
             })
-            .catch((error) => alert(error.message));
-    });
-}
-
-const loginForm = document.getElementById('login-form');
-if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = loginForm.querySelectorAll('input')[0].value;
-        const password = loginForm.querySelectorAll('input')[1].value;
-
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                window.location.href = "../index.html";
-            })
-            .catch(() => alert("Невірний логін або пароль"));
+            .catch((error) => alert("Error Google: " + error.message));
     });
 }
