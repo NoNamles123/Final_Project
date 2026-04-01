@@ -15,27 +15,38 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
-    const guestZone = document.getElementById('auth-guest');
-    const userZone = document.getElementById('auth-user');
-    const nameDisplay = document.getElementById('user-display-name');
+    const guestBlocks = [document.getElementById('auth-guest'), document.getElementById('mobile-auth-guest')];
+    const userBlocks = [document.getElementById('auth-user'), document.getElementById('mobile-auth-user')];
+    const nameDisplays = [document.getElementById('user-display-name'), document.getElementById('mobile-user-name')];
 
     if (user) {
-        console.log("Юзер знайдений:", user.email);
-        if (guestZone) guestZone.classList.add('hidden');
-        if (userZone) userZone.classList.remove('hidden');
-        if (nameDisplay) nameDisplay.textContent = user.displayName || user.email.split('@')[0];
+        console.log("✅ Користувач увійшов:", user.email);
+        
+        guestBlocks.forEach(block => block?.classList.add('hidden'));
+        userBlocks.forEach(block => block?.classList.remove('hidden'));
+        
+        const name = user.displayName || user.email.split('@')[0];
+        nameDisplays.forEach(display => {
+            if (display) display.textContent = name;
+        });
     } else {
-        console.log("Юзер не залогінений");
-        if (guestZone) guestZone.classList.remove('hidden');
-        if (userZone) userZone.classList.add('hidden');
+        console.log(" Користувач не залогінений");
+        
+        guestBlocks.forEach(block => block?.classList.remove('hidden'));
+        userBlocks.forEach(block => block?.classList.add('hidden'));
     }
 });
 
-// Функція виходу
-const logout = () => {
+const handleLogout = (e) => {
+    if (e) e.preventDefault();
     signOut(auth).then(() => {
-        window.location.reload(); // Просто перезавантажуємо сторінку після виходу
+        console.log("Вихід успішний");
+        const isSubDir = window.location.pathname.includes('/Html/');
+        window.location.href = isSubDir ? "../index.html" : "index.html";
+    }).catch((error) => {
+        console.error("Помилка при виході:", error);
     });
 };
 
-document.getElementById('logout-btn')?.addEventListener('click', logout);
+document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
+document.getElementById('mobile-logout-btn')?.addEventListener('click', handleLogout);
