@@ -1,45 +1,41 @@
-const loginForm = document.getElementById('login-form');
-if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const loginInput = document.getElementById('login-email').value.trim();
-        const password = document.getElementById('login-password').value;
-        let emailToAuth = loginInput;
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        if (!loginInput.includes('@')) {
-            try {
-                const usersRef = ref(db, 'users');
-                const userQuery = query(usersRef, orderByChild('username'), equalTo(loginInput));
-                const snapshot = await get(userQuery);
+const firebaseConfig = {
+    apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
+    authDomain: "emails-dc972.firebaseapp.com",
+    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app/",
+    projectId: "emails-dc972",
+    storageBucket: "emails-dc972.firebasestorage.app",
+    messagingSenderId: "779863028604",
+    appId: "1:779863028604:web:5dce06dc9343585dec6af9"
+};
 
-                if (snapshot.exists()) {
-                    const userData = snapshot.val();
-                    const userId = Object.keys(userData)[0];
-                    emailToAuth = userData[userId].email;
-                } else {
-                    alert("Користувача з таким нікнеймом не знайдено");
-                    return;
-                }
-            } catch (error) {
-                console.error("Помилка пошуку в базі:", error);
-                alert("Помилка бази даних. Перевірте Rules у Firebase Console.");
-                return;
-            }
-        }
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const auth = getAuth(app);
 
-        signInWithEmailAndPassword(auth, emailToAuth, password)
-            .then(() => {
-                window.location.href = "../index.html";
-            })
-            .catch((error) => {
-                console.error("Firebase Auth Error:", error.code, error.message);
-                
-                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-                    alert("Невірний логін або пароль");
-                } else {
-                    alert("Помилка входу: " + error.message);
-                }
-            });
+onAuthStateChanged(auth, (user) => {
+    const guestZone = document.getElementById('auth-guest');
+    const userZone = document.getElementById('auth-user');
+    const nameDisplay = document.getElementById('user-display-name');
+
+    if (user) {
+        console.log("Юзер знайдений:", user.email);
+        if (guestZone) guestZone.classList.add('hidden');
+        if (userZone) userZone.classList.remove('hidden');
+        if (nameDisplay) nameDisplay.textContent = user.displayName || user.email.split('@')[0];
+    } else {
+        console.log("Юзер не залогінений");
+        if (guestZone) guestZone.classList.remove('hidden');
+        if (userZone) userZone.classList.add('hidden');
+    }
+});
+
+// Функція виходу
+const logout = () => {
+    signOut(auth).then(() => {
+        window.location.reload(); // Просто перезавантажуємо сторінку після виходу
     });
-}
+};
+
+document.getElementById('logout-btn')?.addEventListener('click', logout);

@@ -28,17 +28,14 @@
                 <a href="Html/FAQ.html" class="hover:text-black uppercase transition-colors">Faq</a>
                 <a href="Html/Why_we.html" class="hover:text-black uppercase transition-colors">Why Choose Us</a>
             </nav>
-
-            <div id="auth-guest" class="flex items-center gap-8 text-sm font-bold tracking-widest text-main-color">
-                <a href="Html/Login.html" class="hover:text-purple-900 uppercase transition-colors">Login</a>
-                <a href="Html/Register.html" class="hover:text-purple-900 uppercase transition-colors">Register</a>
+            <div id="auth-guest" class="flex gap-4">
+                <a href="Html/Login.html">Login</a>
+                <a href="Html/Register.html">Register</a>
             </div>
 
-            <div id="auth-user"
-                class="hidden flex items-center gap-8 text-sm font-bold tracking-widest text-main-color">
-                <span id="user-display-name" class="text-gray-700"></span>
-                <button id="logout-btn"
-                    class="hover:text-red-600 uppercase transition-colors cursor-pointer">Logout</button>
+            <div id="auth-user" class="hidden flex items-center gap-4">
+                <span id="user-display-name" class="font-bold text-main-color"></span>
+                <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
             </div>
         </div>
 
