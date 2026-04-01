@@ -8,8 +8,7 @@ const firebaseConfig = {
     projectId: "emails-dc972",
     storageBucket: "emails-dc972.firebasestorage.app",
     messagingSenderId: "779863028604",
-    appId: "1:779863028604:web:5dce06dc9343585dec6af9",
-    measurementId: "G-9352HQ6QFP"
+    appId: "1:779863028604:web:5dce06dc9343585dec6af9"
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -19,44 +18,22 @@ onAuthStateChanged(auth, (user) => {
     const guestZone = document.getElementById('auth-guest');
     const userZone = document.getElementById('auth-user');
     const nameDisplay = document.getElementById('user-display-name');
-    
-    const mobileGuest = document.getElementById('mobile-auth-guest');
-    const mobileUser = document.getElementById('mobile-auth-user');
-    const mobileName = document.getElementById('mobile-user-name');
 
     if (user) {
-        console.log("✅ Успішний вхід:", user.email);
-
-        const currentPage = window.location.pathname.toLowerCase();
-        if (currentPage.includes('login.html') || currentPage.includes('register.html')) {
-            window.location.href = "../index.html"; 
-            return;
+        console.log("Logged in as:", user.email);
+        if (guestZone) guestZone.style.display = 'none';
+        if (userZone) userZone.style.display = 'flex';
+        if (nameDisplay) nameDisplay.textContent = user.displayName || user.email.split('@')[0];
+        
+        if (window.location.pathname.includes('Login.html')) {
+            window.location.href = "../index.html";
         }
-
-        if (guestZone) guestZone.classList.add('hidden');
-        if (mobileGuest) mobileGuest.classList.add('hidden');
-        
-        if (userZone) userZone.classList.remove('hidden');
-        if (mobileUser) mobileUser.classList.remove('hidden');
-        
-        const username = user.displayName || user.email.split('@')[0];
-        if (nameDisplay) nameDisplay.textContent = username;
-        if (mobileName) mobileName.textContent = username;
-
     } else {
-        console.log("👤 Юзер не залогінений");
-        if (guestZone) guestZone.classList.remove('hidden');
-        if (mobileGuest) mobileGuest.classList.remove('hidden');
-        if (userZone) userZone.classList.add('hidden');
-        if (mobileUser) mobileUser.classList.add('hidden');
+        if (guestZone) guestZone.style.display = 'flex';
+        if (userZone) userZone.style.display = 'none';
     }
 });
 
-window.handleLogout = () => {
-    signOut(auth).then(() => {
-        window.location.href = window.location.pathname.includes('/Html/') ? "../index.html" : "index.html";
-    }).catch(err => console.error(err));
+window.logout = () => {
+    signOut(auth).then(() => { location.reload(); });
 };
-
-document.getElementById('logout-btn')?.addEventListener('click', window.handleLogout);
-document.getElementById('mobile-logout-btn')?.addEventListener('click', window.handleLogout);

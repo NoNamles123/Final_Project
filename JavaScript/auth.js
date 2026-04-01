@@ -27,53 +27,24 @@ async function sendTelegramNotification(username, email) {
         await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: text,
-                parse_mode: 'Markdown'
-            })
+            body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'Markdown' })
         });
-    } catch (e) {
-        console.error("Telegram error:", e);
-    }
+    } catch (e) { console.error(e); }
 }
 
 const regForm = document.getElementById('register-form');
 if (regForm) {
-    let isSubmitting = false;
     regForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (isSubmitting) return;
-        isSubmitting = true;
-
         const username = document.getElementById('reg-username').value.trim();
         const email = document.getElementById('reg-email').value.trim();
         const password = document.getElementById('reg-password').value;
-        const confirmPassword = document.getElementById('reg-confirm-password').value;
-
-        if (password !== confirmPassword) {
-            alert("Паролі не співпадають!");
-            isSubmitting = false;
-            return;
-        }
-
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const uid = userCredential.user.uid;
-
-            await set(ref(db, 'users/' + uid), {
-                username: username,
-                email: email,
-                date: new Date().toISOString()
-            });
-
+            await set(ref(db, 'users/' + userCredential.user.uid), { username, email, date: new Date().toISOString() });
             await sendTelegramNotification(username, email);
-            alert("Реєстрація успішна!");
             window.location.href = "Login.html";
-        } catch (error) {
-            alert("Помилка: " + error.message);
-            isSubmitting = false;
-        }
+        } catch (error) { alert(error.message); }
     });
 }
 
@@ -86,50 +57,15 @@ if (loginForm) {
         let emailToAuth = loginInput;
 
         if (!loginInput.includes('@')) {
-            try {
-                const usersRef = ref(db, 'users');
-                const userQuery = query(usersRef, orderByChild('username'), equalTo(loginInput));
-                const snapshot = await get(userQuery);
-
-                if (snapshot.exists()) {
-                    const userData = snapshot.val();
-                    const userId = Object.keys(userData)[0];
-                    emailToAuth = userData[userId].email;
-                } else {
-                    alert("Користувача з таким нікнеймом не знайдено");
-                    return;
-                }
-            } catch (error) {
-                alert("Помилка бази даних. Перевірте Rules.");
-                return;
-            }
+            const userQuery = query(ref(db, 'users'), orderByChild('username'), equalTo(loginInput));
+            const snapshot = await get(userQuery);
+            if (snapshot.exists()) {
+                emailToAuth = Object.values(snapshot.val())[0].email;
+            } else { alert("User not found"); return; }
         }
 
         signInWithEmailAndPassword(auth, emailToAuth, password)
-            .then(() => {
-                window.location.href = "../index.html";
-            })
-            .catch(() => alert("Невірний логін або пароль"));
-    });
-}
-
-const googleBtn = document.querySelector('button.soc-btn img[alt="Google"]')?.parentElement;
-if (googleBtn) {
-    googleBtn.addEventListener('click', async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            
-            await set(ref(db, 'users/' + user.uid), {
-                username: user.displayName || "Google User",
-                email: user.email,
-                lastLogin: new Date().toISOString()
-            });
-            
-            await sendTelegramNotification(user.displayName || "Google User", user.email);
-            window.location.href = "../index.html";
-        } catch (error) {
-            alert("Google Error: " + error.message);
-        }
+            .then(() => { window.location.href = "../index.html"; })
+            .catch(() => alert("Error logging in"));
     });
 }
