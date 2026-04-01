@@ -4,49 +4,59 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 const firebaseConfig = {
     apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
     authDomain: "emails-dc972.firebaseapp.com",
-    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app/",
+    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "emails-dc972",
     storageBucket: "emails-dc972.firebasestorage.app",
     messagingSenderId: "779863028604",
-    appId: "1:779863028604:web:5dce06dc9343585dec6af9"
+    appId: "1:779863028604:web:5dce06dc9343585dec6af9",
+    measurementId: "G-9352HQ6QFP"
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
-    const guestBlocks = [document.getElementById('auth-guest'), document.getElementById('mobile-auth-guest')];
-    const userBlocks = [document.getElementById('auth-user'), document.getElementById('mobile-auth-user')];
-    const nameDisplays = [document.getElementById('user-display-name'), document.getElementById('mobile-user-name')];
+    const guestZone = document.getElementById('auth-guest');
+    const userZone = document.getElementById('auth-user');
+    const nameDisplay = document.getElementById('user-display-name');
+    
+    const mobileGuest = document.getElementById('mobile-auth-guest');
+    const mobileUser = document.getElementById('mobile-auth-user');
+    const mobileName = document.getElementById('mobile-user-name');
 
     if (user) {
-        console.log("✅ Користувач увійшов:", user.email);
+        console.log("✅ Успішний вхід:", user.email);
+
+        const currentPage = window.location.pathname.toLowerCase();
+        if (currentPage.includes('login.html') || currentPage.includes('register.html')) {
+            window.location.href = "../index.html"; 
+            return;
+        }
+
+        if (guestZone) guestZone.classList.add('hidden');
+        if (mobileGuest) mobileGuest.classList.add('hidden');
         
-        guestBlocks.forEach(block => block?.classList.add('hidden'));
-        userBlocks.forEach(block => block?.classList.remove('hidden'));
+        if (userZone) userZone.classList.remove('hidden');
+        if (mobileUser) mobileUser.classList.remove('hidden');
         
-        const name = user.displayName || user.email.split('@')[0];
-        nameDisplays.forEach(display => {
-            if (display) display.textContent = name;
-        });
+        const username = user.displayName || user.email.split('@')[0];
+        if (nameDisplay) nameDisplay.textContent = username;
+        if (mobileName) mobileName.textContent = username;
+
     } else {
-        console.log(" Користувач не залогінений");
-        
-        guestBlocks.forEach(block => block?.classList.remove('hidden'));
-        userBlocks.forEach(block => block?.classList.add('hidden'));
+        console.log("👤 Юзер не залогінений");
+        if (guestZone) guestZone.classList.remove('hidden');
+        if (mobileGuest) mobileGuest.classList.remove('hidden');
+        if (userZone) userZone.classList.add('hidden');
+        if (mobileUser) mobileUser.classList.add('hidden');
     }
 });
 
-const handleLogout = (e) => {
-    if (e) e.preventDefault();
+window.handleLogout = () => {
     signOut(auth).then(() => {
-        console.log("Вихід успішний");
-        const isSubDir = window.location.pathname.includes('/Html/');
-        window.location.href = isSubDir ? "../index.html" : "index.html";
-    }).catch((error) => {
-        console.error("Помилка при виході:", error);
-    });
+        window.location.href = window.location.pathname.includes('/Html/') ? "../index.html" : "index.html";
+    }).catch(err => console.error(err));
 };
 
-document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
-document.getElementById('mobile-logout-btn')?.addEventListener('click', handleLogout);
+document.getElementById('logout-btn')?.addEventListener('click', window.handleLogout);
+document.getElementById('mobile-logout-btn')?.addEventListener('click', window.handleLogout);
