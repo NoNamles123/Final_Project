@@ -11,16 +11,16 @@ const userId = 'user_' + Math.random().toString(36).substr(2, 9);
 const chatRef = ref(db, `chats/${userId}`);
 
 const widgetHTML = `
-    <div id="chat-widget-container" class="fixed bottom-6 right-6 z-[99999] font-sans">
-        <button id="chat-toggle" class="w-16 h-16 bg-[#6E38F7] rounded-full shadow-2xl flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group border-none cursor-pointer">
+    <div id="chat-widget-container" class="fixed bottom-6 right-6 z-99999 font-sans">
+        <button id="chat-toggle" class="w-16 h-16 bg-main-color rounded-full shadow-2xl flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group border-none cursor-pointer">
             <span class="text-3xl transition-transform group-hover:rotate-12">💬</span>
         </button>
 
         <div id="chat-window" 
              style="display: none;" 
-             class="fixed bottom-0 right-0 w-full h-[100dvh] md:absolute md:bottom-24 md:right-0 md:w-[420px] md:h-[600px] md:max-h-[80vh] bg-white md:rounded-[32px] shadow-2xl flex flex-col overflow-hidden z-[100000] border border-gray-100 transition-all duration-300">
+             class="fixed bottom-0 right-0 w-full h-[100dvh] md:absolute md:bottom-24 md:right-0 md:w-[420px] md:h-[600px] md:max-h-[80vh] bg-white md:rounded-[32px] shadow-2xl flex flex-col overflow-hidden z-100000 border border-gray-100 transition-all duration-300">
             
-            <div class="bg-[#6E38F7] p-6 text-white flex justify-between items-center shadow-lg">
+            <div class="bg-main-color p-6 text-white flex justify-between items-center shadow-lg">
                 <div class="flex items-center gap-3 text-left">
                     <div class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_#4ade80]"></div>
                     <div>
@@ -39,10 +39,10 @@ const widgetHTML = `
 
             <form id="chat-form" class="p-5 bg-white border-t border-gray-100 flex gap-2 items-center">
                 <input type="text" id="chat-input" placeholder="Напишіть нам..." 
-                    class="flex-1 p-4 bg-gray-100 rounded-2xl border-none focus:ring-2 focus:ring-[#6E38F7] text-base outline-none text-slate-900 placeholder:text-gray-400">
+                    class="flex-1 p-4 bg-gray-100 rounded-2xl border-none focus:ring-2 focus:ring-main-color text-base outline-none text-slate-900 placeholder:text-gray-400">
                 
                 <button type="submit" 
-                    class="bg-[#6E38F7] text-white w-12 h-12 rounded-2xl hover:opacity-90 active:scale-90 transition-all flex items-center justify-center shadow-md border-none cursor-pointer text-xl">
+                    class="bg-main-color text-white w-12 h-12 rounded-2xl hover:opacity-90 active:scale-90 transition-all flex items-center justify-center shadow-md border-none cursor-pointer text-xl">
                     ➔
                 </button>
             </form>
@@ -103,7 +103,7 @@ document.getElementById('chat-form').onsubmit = async (e) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: '7206470002',
-                text: `💬 Нове повідомлення!\nID: ${userId}\nТекст: ${text}`
+                text: `Нове повідомлення!\nID: ${userId}\nТекст: ${text}`
             })
         });
         input.value = '';
