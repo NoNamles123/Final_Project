@@ -1,40 +1,45 @@
-import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const loginInput = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        let emailToAuth = loginInput;
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
-    authDomain: "emails-dc972.firebaseapp.com",
-    projectId: "emails-dc972",
-    storageBucket: "emails-dc972.appspot.com",
-    messagingSenderId: "779863028604",
-    appId: "1:779863028604:web:5dce06dc9343585dec6af9"
-};
+        if (!loginInput.includes('@')) {
+            try {
+                const usersRef = ref(db, 'users');
+                const userQuery = query(usersRef, orderByChild('username'), equalTo(loginInput));
+                const snapshot = await get(userQuery);
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const userId = Object.keys(userData)[0];
+                    emailToAuth = userData[userId].email;
+                } else {
+                    alert("Користувача з таким нікнеймом не знайдено");
+                    return;
+                }
+            } catch (error) {
+                console.error("Помилка пошуку в базі:", error);
+                alert("Помилка бази даних. Перевірте Rules у Firebase Console.");
+                return;
+            }
+        }
 
-onAuthStateChanged(auth, (user) => {
-    const guestBlocks = [document.getElementById('auth-guest'), document.getElementById('mobile-auth-guest')];
-    const userBlocks = [document.getElementById('auth-user'), document.getElementById('mobile-auth-user')];
-    const userNames = [document.getElementById('user-display-name'), document.getElementById('mobile-user-name')];
-
-    if (user) {
-        guestBlocks.forEach(b => b?.classList.add('hidden'));
-        userBlocks.forEach(b => b?.classList.remove('hidden'));
-        const name = user.displayName || user.email.split('@')[0];
-        userNames.forEach(n => { if(n) n.textContent = name; });
-    } else {
-        guestBlocks.forEach(b => b?.classList.remove('hidden'));
-        userBlocks.forEach(b => b?.classList.add('hidden'));
-    }
-});
-
-const handleLogout = () => {
-    signOut(auth).then(() => {
-        const isSubDir = window.location.pathname.includes('/Html/');
-        window.location.href = isSubDir ? "../index.html" : "index.html";
+        signInWithEmailAndPassword(auth, emailToAuth, password)
+            .then(() => {
+                window.location.href = "../index.html";
+            })
+            .catch((error) => {
+                console.error("Firebase Auth Error:", error.code, error.message);
+                
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    alert("Невірний логін або пароль");
+                } else {
+                    alert("Помилка входу: " + error.message);
+                }
+            });
     });
-};
-
-document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
-document.getElementById('mobile-logout-btn')?.addEventListener('click', handleLogout);
+}
