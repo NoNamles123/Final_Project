@@ -1447,6 +1447,11 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
+  .focus\:ring-\[\#6E38F7\] {
+    &:focus {
+      --tw-ring-color: #6E38F7;
+    }
+  }
   .focus\:ring-main-color {
     &:focus {
       --tw-ring-color: var(--color-main-color);
@@ -1484,39 +1489,9 @@
       scale: var(--tw-scale-x) var(--tw-scale-y);
     }
   }
-  .nav\:absolute {
-    @media (width >= 835px) {
-      position: absolute;
-    }
-  }
-  .nav\:right-0 {
-    @media (width >= 835px) {
-      right: calc(var(--spacing) * 0);
-    }
-  }
-  .nav\:bottom-24 {
-    @media (width >= 835px) {
-      bottom: calc(var(--spacing) * 24);
-    }
-  }
   .nav\:hidden {
     @media (width >= 835px) {
       display: none;
-    }
-  }
-  .nav\:h-\[600px\] {
-    @media (width >= 835px) {
-      height: 600px;
-    }
-  }
-  .nav\:w-\[420px\] {
-    @media (width >= 835px) {
-      width: 420px;
-    }
-  }
-  .nav\:rounded-\[32px\] {
-    @media (width >= 835px) {
-      border-radius: 32px;
     }
   }
   .sm\:flex-row {
@@ -1541,6 +1516,21 @@
       line-height: calc(var(--spacing) * 8);
     }
   }
+  .md\:absolute {
+    @media (width >= 48rem) {
+      position: absolute;
+    }
+  }
+  .md\:right-0 {
+    @media (width >= 48rem) {
+      right: calc(var(--spacing) * 0);
+    }
+  }
+  .md\:bottom-24 {
+    @media (width >= 48rem) {
+      bottom: calc(var(--spacing) * 24);
+    }
+  }
   .md\:h-\[440px\] {
     @media (width >= 48rem) {
       height: 440px;
@@ -1551,6 +1541,21 @@
       height: 480px;
     }
   }
+  .md\:h-\[600px\] {
+    @media (width >= 48rem) {
+      height: 600px;
+    }
+  }
+  .md\:max-h-\[80vh\] {
+    @media (width >= 48rem) {
+      max-height: 80vh;
+    }
+  }
+  .md\:w-\[420px\] {
+    @media (width >= 48rem) {
+      width: 420px;
+    }
+  }
   .md\:grid-cols-2 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1559,6 +1564,11 @@
   .md\:grid-cols-3 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .md\:rounded-\[32px\] {
+    @media (width >= 48rem) {
+      border-radius: 32px;
     }
   }
   .md\:p-12 {
