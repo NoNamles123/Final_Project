@@ -1,8 +1,16 @@
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+
 const firebaseConfig = {
-    databaseURL: "https://dildo1488-70cee-default-rtdb.europe-west1.firebasedatabase.app/"
+    apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
+    authDomain: "emails-dc972.firebaseapp.com",
+    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "emails-dc972",
+    storageBucket: "emails-dc972.appspot.com",
+    messagingSenderId: "779863028604",
+    appId: "1:779863028604:web:5dce06dc9343585dec6af9",
+    measurementId: "G-9352HQ6QFP"
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
