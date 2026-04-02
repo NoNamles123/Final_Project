@@ -14,25 +14,47 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
+const handleLogout = async () => {
+    try {
+        await signOut(auth);
+        window.location.reload();
+    } catch (error) {
+        console.error("Logout error:", error);
+    }
+};
+
+document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
+document.getElementById('mobile-logout-btn')?.addEventListener('click', handleLogout);
 
 onAuthStateChanged(auth, (user) => {
-    const guestBlocks = [document.getElementById('auth-guest'), document.getElementById('mobile-auth-guest')].filter(Boolean);
-    const userBlocks = [document.getElementById('auth-user'), document.getElementById('mobile-auth-user')].filter(Boolean);
-    const userNames = [document.getElementById('user-display-name'), document.getElementById('mobile-user-name')].filter(Boolean);
+    const guestBlock = document.getElementById('auth-guest');
+    const userBlock = document.getElementById('auth-user');
+    const userName = document.getElementById('user-display-name');
+    const mobileGuest = document.getElementById('mobile-auth-guest');
+    const mobileUser = document.getElementById('mobile-auth-user');
+    const mobileUserName = document.getElementById('mobile-user-name');
 
     if (user) {
-        guestBlocks.forEach(b => b.classList.add('hidden'));
-        userBlocks.forEach(b => b.classList.remove('hidden'));
-        const name = user.displayName || user.email.split('@')[0];
-        userNames.forEach(n => n.textContent = name);
+        const displayName = user.displayName || user.email.split('@')[0];
+        guestBlock?.classList.add('hidden');
+        guestBlock?.classList.remove('flex');
+        userBlock?.classList.remove('hidden');
+        userBlock?.classList.add('flex');
+        if (userName) userName.textContent = displayName;
+        mobileGuest?.classList.add('hidden');
+        mobileGuest?.classList.remove('flex');
+        mobileUser?.classList.remove('hidden');
+        mobileUser?.classList.add('flex');
+        if (mobileUserName) mobileUserName.textContent = displayName;
+        
     } else {
-        guestBlocks.forEach(b => b.classList.remove('hidden'));
-        userBlocks.forEach(b => b.classList.add('hidden'));
+        guestBlock?.classList.remove('hidden');
+        guestBlock?.classList.add('flex');
+        userBlock?.classList.add('hidden');
+        userBlock?.classList.remove('flex');
+        mobileGuest?.classList.remove('hidden');
+        mobileGuest?.classList.add('flex');
+        mobileUser?.classList.add('hidden');
+        mobileUser?.classList.remove('flex');
     }
 });
-
-window.handleLogout = () => {
-    signOut(auth).then(() => {
-        window.location.reload();
-    });
-};
