@@ -1,19 +1,23 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getDatabase, ref, set, get, update, query, orderByChild, equalTo, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
-    databaseURL: "https://dildo1488-70cee-default-rtdb.europe-west1.firebasedatabase.app/"
+    apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
+    authDomain: "emails-dc972.firebaseapp.com",
+    databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "emails-dc972",
+    storageBucket: "emails-dc972.firebasestorage.app",
+    messagingSenderId: "779863028604",
+    appId: "1:779863028604:web:5dce06dc9343585dec6af9",
+    measurementId: "G-9352HQ6QFP"
 };
-
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 const db = getDatabase(app);
-
 const userId = 'user_' + Math.random().toString(36).substr(2, 9);
-
 const chatRef = ref(db, `chats/${userId}`);
 const messagesContainer = document.getElementById('chat-messages');
-
 messagesContainer.innerHTML = '';
 
 onChildAdded(chatRef, (snapshot) => {

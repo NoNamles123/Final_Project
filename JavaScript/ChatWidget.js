@@ -1,13 +1,12 @@
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-
 const firebaseConfig = {
     apiKey: "AIzaSyCN1mdz3WBwPiKiNeCq6o1IaEFydqQb9UE",
     authDomain: "emails-dc972.firebaseapp.com",
     databaseURL: "https://emails-dc972-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "emails-dc972",
-    storageBucket: "emails-dc972.appspot.com",
+    storageBucket: "emails-dc972.firebasestorage.app",
     messagingSenderId: "779863028604",
     appId: "1:779863028604:web:5dce06dc9343585dec6af9",
     measurementId: "G-9352HQ6QFP"
@@ -88,7 +87,7 @@ onChildAdded(chatRef, (snapshot) => {
         const isBot = (data.sender === 'bot' || data.sender === 'admin');
         const msgHtml = `
             <div class="flex ${isBot ? 'justify-start' : 'justify-end'} animate-in fade-in slide-in-from-bottom-2 duration-300">
-                <div class="${isBot ? 'bg-white text-gray-800 border border-gray-100' : 'bg-[#6E38F7] text-white'} p-3.5 rounded-2xl ${isBot ? 'rounded-tl-none' : 'rounded-tr-none'} shadow-sm max-w-[85%] break-words leading-relaxed text-left">
+                <div class="${isBot ? 'bg-white text-gray-800 border border-gray-100' : 'bg-main-color text-white'} p-3.5 rounded-2xl ${isBot ? 'rounded-tl-none' : 'rounded-tr-none'} shadow-sm max-w-[85%] break-words leading-relaxed text-left">
                     ${data.text}
                 </div>
             </div>
@@ -104,16 +103,12 @@ document.getElementById('chat-form').onsubmit = async (e) => {
     const text = input.value.trim();
 
     if (text) {
-        await push(chatRef, { text, sender: 'user', timestamp: Date.now() });
-        
-        fetch(`https://api.telegram.org/bot8285437642:AAGSWQ_6TPye9RtrDHgVXhqidvIWL5H2hGA/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: '7206470002',
-                text: `Нове повідомлення!\nID: ${userId}\nТекст: ${text}`
-            })
+        await push(chatRef, { 
+            text: text, 
+            sender: 'user', 
+            timestamp: Date.now() 
         });
+        
         input.value = '';
     }
 };
