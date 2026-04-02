@@ -26,9 +26,14 @@
                 <a href="Why_we.html" class="hover:text-black uppercase transition-colors">Why Choose Us</a>
             </nav>
 
-            <div class="flex items-center gap-8 text-sm font-bold tracking-widest text-main-color">
+           <div id="auth-guest" class="flex gap-4 text-main-color font-bold uppercase tracking-widest transition-all">
                 <a href="Login.html" class="hover:text-purple-900 uppercase transition-colors">Login</a>
                 <a href="Register.html" class="hover:text-purple-900 uppercase transition-colors">Register</a>
+            </div>
+
+            <div id="auth-user" class="hidden items-center gap-4">
+                <span id="user-display-name" class="font-bold text-main-color"></span>
+                <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
             </div>
         </div>
     </header>
@@ -42,8 +47,14 @@
             <a href="pricing.html">Pricing</a>
             <a href="Why_we.html">Why Choose Us</a>
             <hr class="border-gray-100">
-            <a href="Login.html" class="text-main-color">Login</a>
-            <a href="Register.html" class="text-main-color">Register</a>
+             <div id="mobile-auth-guest" class="flex flex-col gap-6">
+                <a href="Login.html" class="text-main-color font-bold uppercase tracking-widest transition-all hover:opacity-80">Login</a>
+                <a href="Register.html" class="text-main-color font-bold uppercase tracking-widest transition-all hover:opacity-80">Register</a>
+            </div>
+            <div id="mobile-auth-user" class="hidden flex-col gap-6">
+                <span id="mobile-user-name" class="text-gray-500 text-sm"></span>
+                <button id="mobile-logout-btn" class="text-left text-red-500">Logout</button>
+            </div>
         </nav>
     </div>
 
