@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our team</title>
+    <meta name="description" content="Meet our professional team — demo profiles and placeholders, ready for Fiverr listing.">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/output.css">
+</head>
+
+<body class="bg-[#FFFFFF] antialiased text-[#2D2D2D]">
+
+    <header class="flex items-center justify-between px-6 md:px-12 py-6 relative font-['Rubik']">
+        <button id="burger-btn" class="custom-burger-visible z-50 cursor-pointer p-0 bg-transparent border-0 flex nav:hidden">
+            <img src="../Images/icons/Burger.svg" alt="Burger Menu" class="w-10 h-10 object-contain">
+        </button>
+
+        <div class="custom-nav-hidden items-center justify-between w-full ml-12">
+            <nav class="flex items-center gap-8 text-sm font-bold tracking-widest text-gray-700">
+                <a href="../index.html" class="hover:text-black uppercase transition-colors">Go home</a>
+                <a href="About.html" class="hover:text-black uppercase transition-colors">About</a>
+                <a href="pricing.html" class="hover:text-black uppercase transition-colors">Pricing</a>
+                <a href="FAQ.html" class="hover:text-black uppercase transition-colors">Faq</a>
+                <a href="Why_we.html" class="hover:text-black uppercase transition-colors">Why Choose Us</a>
+            </nav>
+
+            <div id="auth-guest" class="flex gap-4 text-main-color font-bold uppercase tracking-widest transition-all">
+                <a href="Login.html" class="hover:text-purple-900 uppercase transition-colors">Login</a>
+                <a href="Register.html" class="hover:text-purple-900 uppercase transition-colors">Register</a>
+            </div>
+
+            <div id="auth-user" class="hidden items-center gap-4">
+                <span id="user-display-name" class="font-bold text-main-color"></span>
+                <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 nav:hidden z-40">
+        <nav class="flex flex-col gap-6 p-8 text-lg font-semibold pt-20">
+            <a href="../index.html">Go home</a>
+            <a href="About.html">About</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="FAQ.html">Faq</a>
+            <a href="Why_we.html">Why Choose Us</a>
+            <hr class="border-gray-100">
+            <div id="mobile-auth-guest" class="flex flex-col gap-6">
+                <a href="Login.html" class="text-main-color font-bold uppercase tracking-widest transition-all hover:opacity-80">Login</a>
+                <a href="Register.html" class="text-main-color font-bold uppercase tracking-widest transition-all hover:opacity-80">Register</a>
+            </div>
+            <div id="mobile-auth-user" class="hidden flex-col gap-6">
+                <span id="mobile-user-name" class="text-gray-500 text-sm"></span>
+                <button id="mobile-logout-btn" class="text-left text-red-500">Logout</button>
+            </div>
+        </nav>
+    </div>
+
+    <main class="max-w-[1200px] mx-auto px-6 py-12 font-['Rubik']">
+        <h1 class="text-[42px] font-bold text-center text-[#2D313D] mb-12">Our team</h1>
+
+        <div class="w-full aspect-[21/9] bg-[#F7F9FC] flex items-center justify-center mb-20 rounded-xl overflow-hidden shadow-sm">
+            <img src="../Images/Team.jpg" alt="Our team" class="w-full h-full object-cover">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 max-w-[1000px] mx-auto">
+            
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='100%' height='100%' fill='%23F0F2F8'/><circle cx='100' cy='70' r='40' fill='%23D1D5E0'/><rect x='35' y='120' width='130' height='20' rx='10' fill='%23D1D5E0'/></svg>" alt="Team member photo" loading="lazy" decoding="async" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Team Member 1</h3>
+                    <p class="text-[11px] font-bold text-[#101011] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">CEO</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='100%' height='100%' fill='%23F0F2F8'/><circle cx='100' cy='70' r='40' fill='%23D1D5E0'/><rect x='35' y='120' width='130' height='20' rx='10' fill='%23D1D5E0'/></svg>" alt="Team member photo" loading="lazy" decoding="async" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Team Member 2</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">CO-FOUNDER</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='100%' height='100%' fill='%23F0F2F8'/><circle cx='100' cy='70' r='40' fill='%23D1D5E0'/><rect x='35' y='120' width='130' height='20' rx='10' fill='%23D1D5E0'/></svg>" alt="Team member photo" loading="lazy" decoding="async" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Team Member 3</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">DESIGNER</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-5 group">
+                <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-[#F0F2F8] border border-transparent group-hover:border-(--color-main) transition-all duration-300 shadow-sm">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='100%' height='100%' fill='%23F0F2F8'/><circle cx='100' cy='70' r='40' fill='%23D1D5E0'/><rect x='35' y='120' width='130' height='20' rx='10' fill='%23D1D5E0'/></svg>" alt="Team member photo" loading="lazy" decoding="async" class="w-full h-full object-cover aspect-square">
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#2D313D] leading-tight">Team Member 4</h3>
+                    <p class="text-[11px] font-bold text-[#AAB0C0] uppercase tracking-[0.2em] mt-1 group-hover:text-(--color-main) transition-colors">WEB DEVELOPER</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="../JavaScript/Burger.js"></script>
+    <script type="module" src="../JavaScript/ChatWidget.js"></script>
+    <script type="module" src="../JavaScript/checkAccount.js"></script>
+</body>
+</html>
